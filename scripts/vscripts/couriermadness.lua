@@ -264,6 +264,8 @@ function GameMode:OnGameInProgress()
 
 	-- Play Liquid are doing it, WOW, when beating your old score
 	GameRules.playedHighscorePredictionSound = false
+	-- Play WIN sounds! History of Dota
+	GameRules.play_highscore_sound = false
 
 	DIFFICULTY_INCREASE_TIME = 20.0
 	MULTIPLIER_INCREASE_TIME = 20.0
@@ -586,7 +588,8 @@ function GameMode:ShowHighscoreAchieved( player, score)
 
 	PopupLegion( hero, score )
 
-	PlayNewHighscore()
+	-- Enable the highscore sound bool this next death sound
+	GameRules.play_highscore_sound = true
 
 	GameRules:SendCustomMessage("NEW HIGHSCORE! <font color='#FFC800'>"..score.."</font>",0,0)
 

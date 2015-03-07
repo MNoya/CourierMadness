@@ -102,7 +102,14 @@ function PlayPlayerDeathSounds()
 		end)
 	end
 	
-	Timers:CreateTimer(1, function() EmitGlobalSound(player_death_trollsounds[RandomInt(1,6)]) end)
+	Timers:CreateTimer(1, function() 
+		if GameRules.play_highscore_sound == false then
+			EmitGlobalSound(player_death_trollsounds[RandomInt(1,6)])
+		else
+			PlayNewHighscore()
+			GameRules.play_highscore_sound = false
+		end
+	end)
 	Timers:CreateTimer(20, function() StartSoundTracks() end)
 end
 
@@ -187,15 +194,14 @@ function PlayNewHighscorePrediction(target)
 end
 
 -- a new highscore updated
-function PlayNewHighscore( )
-	local randomWin = RandomInt(1,5)
-	if randomWin <= 3 then
+function PlayNewHighscore()
+	
+	if RollPercentage(50) then
+		local randomWin = RandomInt(1,3)
 		local winSound = "omniknight_omni_win_0"..randomWin
 		EmitGlobalSound(winSound)
-	elseif randomWin == 4 then
-		EmitGlobalSound("valve_dota_001.stinger.radiant_win")
 	else
-		EmitGlobalSound("DOTAMusic_Stinger.009")
+		EmitGlobalSound("CourierMadness.HistoryOfDota")
 	end
 end
 
