@@ -172,8 +172,18 @@ function PlayLaughSounds()
 end
 
 --when a new highscore would be scored
-function PlayNewHighscorePrediction( )
-	EmitGlobalSound(highscore_sounds[RandomInt(1,4)])
+function PlayNewHighscorePrediction(target)
+	EmitGlobalSound(highscore_sounds[1])
+	Timers:CreateTimer(2.5, function() EmitGlobalSound(highscore_sounds[2]) end)
+
+	GameRules.playedHighscorePredictionSound = true
+
+	local player = PlayerResource:GetPlayer(0)
+	local hero = player:GetAssignedHero()
+	local targetPos = hero:GetAbsOrigin()
+    local particle = ParticleManager:CreateParticle( "particles/custom/legion_commander_duel_victories.vpcf", PATTACH_CUSTOMORIGIN, target )
+    ParticleManager:SetParticleControl( particle, 3, Vector(targetPos.x, targetPos.y, targetPos.z+322) )
+
 end
 
 -- a new highscore updated

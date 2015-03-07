@@ -262,6 +262,9 @@ function GameMode:OnGameInProgress()
 	GameRules.fluffy_tails = {}
 	GameRules.golden_sheeps = {}
 
+	-- Play Liquid are doing it, WOW, when beating your old score
+	GameRules.playedHighscorePredictionSound = false
+
 	DIFFICULTY_INCREASE_TIME = 20.0
 	MULTIPLIER_INCREASE_TIME = 20.0
 	MAX_DIFFICULTY_LEVEL = 50
@@ -578,6 +581,7 @@ end, "A player gets a new highscore", 0 )
 
 function GameMode:ShowHighscoreAchieved( player, score)
 
+	GameRules.highscore = tonumber(score)
 	local hero = player:GetAssignedHero()
 
 	PopupLegion( hero, score )
@@ -603,6 +607,7 @@ end
 
 -- register the 'OldHighscoreDetected' command in our console
 Convars:RegisterCommand( "OldHighscoreDetected", function(name, p)
+	GameRules.highscore = tonumber(p) -- Keep track of the highscore
 	print(GameRules.rounds_played)
 	if GameRules.rounds_played == 0 then
 		print( '******* Old Highscore Detected  ***************' )
@@ -680,6 +685,8 @@ Convars:RegisterCommand( "Disconnecting", function(name, p)
 end, "A player chooses exit", 0 )
 
 function GameMode:EndGame( player, score)
+	-- Send stats final
+	statcollection.sendStats()
 	GameRules:SendCustomMessage("<font color='#FFC800'><br>Game will end in 10 seconds</font>",0,0)
 	Timers:CreateTimer(4, function() GameRules:SendCustomMessage("<font color='#FFC800'>Please leave your feedback at our workshop page</font>",0,0) end)
 	Timers:CreateTimer(7, function() GameRules:SendCustomMessage("<font color='#FFC800'>3</font>",0,0) end)

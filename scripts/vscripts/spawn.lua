@@ -68,6 +68,14 @@ function OnTouchDeathZone( trigger )
 			unit:RemoveSelf()
 		end
 	end)
+
+	-- WOW
+	if GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
+		if GameRules.score > GameRules.highscore then
+			print("NEW HIGHSCORE REACHED, WOW")
+			PlayNewHighscorePrediction()
+		end
+	end
 end
 
 -- Spawns one unit, moving towards the death region.
