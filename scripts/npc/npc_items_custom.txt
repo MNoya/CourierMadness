@@ -1,0 +1,41 @@
+// DataDriven Item Guide: https://moddota.com/forums/discussion/4/datadriven-items
+
+"DOTAAbilities"
+{
+	"item_apply_modifiers"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"item_datadriven"
+	
+		"Modifiers"
+		{
+			"modifier_courier_capture"
+			{
+				"IsHidden"				"1"	
+	
+				"OverrideAnimation"     "ACT_DOTA_CAPTURE"
+			}
+			"modifier_courier_idle"
+			{
+				"IsHidden"				"1"	
+	
+				"OverrideAnimation"     "ACT_DOTA_IDLE"
+			}
+			"modifier_courier_idle_rare"
+			{
+				"IsHidden"				"1"	
+	
+				"OverrideAnimation"     "ACT_DOTA_IDLE_RARE"
+			}
+			"modifier_extra_hp"
+			{
+				"IsHidden"				"1"
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_BONUS" "1"
+				}
+			}
+		}
+	}
+}

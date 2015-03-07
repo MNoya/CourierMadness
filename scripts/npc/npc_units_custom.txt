@@ -1,0 +1,640 @@
+// Dota Units File
+"DOTAUnits"
+{
+	"Version"	"1"
+  
+  	// Unit to use with SetCameraTarget
+	"camera_guy"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/development/invisiblebox.vmdl"
+		"Level"						"1"
+		
+		"Ability1"					"camera_passive"
+	}
+
+	"dummy_bloody_unit"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"VisionDaytimeRange"		"0"	
+		"VisionNighttimeRange"		"0"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
+		"AbilityLayout"				"4"
+		"Ability1"					"bloody"
+	}
+
+	// Basic Unit
+	"courier"
+	{										
+		"Model"						"models/items/hex/sheep_hex/sheep_hex.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"Level"						"1"
+		"ModelScale" 				"1"
+	
+		"Ability1"					"courier_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		
+		"RingRadius"				"100" //This is used for Collision detection.
+		"HealthBarOffset"			"180"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"80" //Speed is randomized in lua
+	
+		"StatusHealth"				"1"
+		"StatusHealthRegen"			"0" 
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	// Fat Unit, higher collision
+	"fat_courier"
+	{										
+		"Model"						"models/items/hex/sheep_hex/sheep_hex.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"Level"						"1"
+		"ModelScale" 				"1"
+	
+		"Ability1"					"courier_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		
+		"RingRadius"				"140" //This is used for Collision detection.
+		"HealthBarOffset"			"250"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"100" //Speed is randomized in lua
+	
+		"StatusHealth"				"1"
+		"StatusHealthRegen"			"0" 
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	// Donkey
+	"donkey"
+	{										
+		"Model"						"models/props_gameplay/donkey.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"Level"						"1"
+		"ModelScale" 				"1"
+	
+		"Ability1"					"donkey_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		
+		"RingRadius"				"80" //This is used for Collision detection.		
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"100" //Speed is randomized in lua
+	
+		"StatusHealth"				"1"
+		"StatusHealthRegen"			"0" 
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	// Extra Life Unit
+	"fluffy_tail"
+	{
+		"Model"						"models/heroes/enchantress/enchantress.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"Level"						"1"
+		"ModelScale" 				"1"
+	
+		"Ability1"					"fluffy_tail_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		
+		"RingRadius"				"120" //This is used for Collision detection.
+		"HealthBarOffset"			"200"	
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"100" //Speed is randomized in lua
+	
+		"StatusHealth"				"1"
+		"StatusHealthRegen"			"0" 
+		"TeamName"					"DOTA_TEAM_NEUTRALS"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"4786"		} //"Headdress of the Wildwing's Blessing" - Head
+				"Wearable2"		{	"ItemDef"		"4785"		} //"Spear of the Wildwing's Blessing" - Weapon
+				"Wearable3" 	{	"ItemDef"		"4787"		} //"Wingbelt of the Wildwing's Blessing" - Belt
+				"Wearable4"		{	"ItemDef"		"4678"		} //"Necklace of the Wildwing's Blessing" - Neck
+				"Wearable5"		{	"ItemDef"		"4676"		} //"Bangles of the Wildwing's Blessing" - Arms
+			}
+		}
+	}
+
+	// Extra Multiplier Unit
+	"golden_courier"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/items/hex/sheep_hex/sheep_hex_gold.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+		
+		"Ability1"					"golden_passive"
+		
+		"ArmorPhysical"				"0"
+		"MagicalResistance"			"0"
+		
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"
+		"RingRadius"				"80"
+		"HealthBarOffset"			"200"
+		
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"270"
+		
+		"StatusHealth"				"42"
+	}
+
+
+	// Spectators
+	"spectator_shitty_wizard"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/creeps/lane_creeps/wizard/wizard.vmdl"
+		"ModelScale"				"2"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	"spectator_lina"
+	//loadout_rare [ACT_DOTA_LOADOUT_RARE] 
+	//taunt_get_burned [ACT_DOTA_TAUNT+get_burned] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/lina/lina.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"4794"		} //"Fiery Soul of the Slayer"
+				"Wearable2"		{	"ItemDef"		"6339"		} //"Fire Lotus Belt"
+				"Wearable3" 	{	"ItemDef"		"5941"		} //"Wings of the Ember Crane"
+				"Wearable4"		{	"ItemDef"		"4756"		} //"Arc of the Solar Divine"
+			}
+		}
+	}
+
+	"spectator_knight"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/dragon_knight/dragon_knight.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"6789"		} //"Shield of Ascension"
+				"Wearable2"		{	"ItemDef"		"6791"		} //"Pauldrons of Ascension"
+				"Wearable3" 	{	"ItemDef"		"6790"		} //"Gauntlets of Ascension"
+				"Wearable4"		{	"ItemDef"		"6788"		} //"Drapes of Ascension"
+				"Wearable5"		{	"ItemDef"		"6787"		} //"Sword of Ascension"
+				"Wearable6"		{	"ItemDef"		"6792"		} //"Helm of Ascension"
+			}
+		}
+	}
+
+	"spectator_maiden" //cm_idle_alt2 [ACT_DOTA_IDLE_RARE] 
+	//cm_taunt_snowball [ACT_DOTA_TAUNT+snowball] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/crystal_maiden/crystal_maiden.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable2"		{	"ItemDef"		"6573"		} //Sceptre of Icewrack
+				"Wearable3" 	{	"ItemDef"		"5738"		} //"Hood of the Frozen Feather"
+				"Wearable4"		{	"ItemDef"		"5735"		} //Cape of the Frozen Feather
+				"Wearable5"		{	"ItemDef"		"5736"		} //Pauldrons of the Frozen Feather
+				"Wearable6"		{	"ItemDef"		"5734"		} //"Bracers of the Frozen Feather"
+			}
+		}
+	}
+
+
+	"spectator_shopkeeper1"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/shopkeeper_dire/shopkeeper_dire.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+		
+	"spectator_shopkeeper2"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_gameplay/shopkeeper_fountain/shopkeeper_fountain.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	"spectator_shopkeeper3"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/shopkeeper/shopkeeper.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	"spectator_kotol"
+	//keeper_of_the_light_tut01_introbow [ACT_DOTA_TAUNT] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/keeper_of_the_light/keeper_of_the_light.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1.1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"	{ "ItemDef" "4867" } //Roehrin
+				"Wearable2"	{ "ItemDef"	"4803" } //Legendary staff
+				"Wearable3" { "ItemDef"	"4864" }
+				"Wearable4" { "ItemDef"	"4866" }
+				"Wearable5" { "ItemDef"	"4868" }
+			}
+		}
+	}
+
+	"spectator_venge"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/vengeful/vengeful.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"6257"		} //"Wings of the Fallen Princess"
+				"Wearable2"		{	"ItemDef"		"6256"		} //"Helm of the Fallen Princess"
+				"Wearable3" 	{	"ItemDef"		"6259"		} //"Legs of the Fallen Princess"
+				"Wearable4"		{	"ItemDef"		"5344"		} //"Scree'auk's Talon"
+			}
+		}
+	}
+
+	"spectator_skywrath"
+	//keeper_of_the_light_tut01_introbow [ACT_DOTA_TAUNT] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/skywrath_mage/skywrath_mage.vmdl"
+		"ModelScale"				"0.8"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"	{ "ItemDef" "6124" }
+				"Wearable2"	{ "ItemDef"	"6125" }
+				"Wearable3" { "ItemDef"	"6126" }
+				"Wearable4" { "ItemDef"	"6127" }
+				"Wearable5" { "ItemDef"	"6128" }
+				"Wearable6" { "ItemDef"	"6919" } //golden empyrean
+			}
+		}
+	}
+
+	"spectator_furion" 
+	//idle_staffspin [ACT_DOTA_IDLE_RARE] 
+	//taunt_lute [ACT_DOTA_TAUNT+lute] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/furion/furion.vmdl"
+		"ModelScale"				"0.9"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"4566"		} //"Scythe of Vyse"
+				"Wearable2"		{	"ItemDef"		"4029"		} //"Cape of Verdant Dreaming"
+				"Wearable3" 	{	"ItemDef"		"4031"		} //"Runed Ailettes"
+				"Wearable4"		{	"ItemDef"		"4027"		} //Luxuriant Chin-Foliage
+				"Wearable5"		{	"ItemDef"		"4064"		} //"Grand Crown of the Gigas"
+			}
+		}
+	}
+
+	"spectator_wr" //idle_alt [ACT_DOTA_IDLE_RARE] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/windrunner/windrunner.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"	//Featherfall
+			{
+				"Wearable1"		{	"ItemDef"		"4831"		} 
+				"Wearable2"		{	"ItemDef"		"4832"		} 
+				"Wearable3" 	{	"ItemDef"		"4833"		} 
+				"Wearable4"		{	"ItemDef"		"4834"		} 
+				"Wearable5"		{	"ItemDef"		"4835"		}
+			}
+		}
+	}
+
+	"spectator_qop" //queenofpain_idle_alt [ACT_DOTA_IDLE_RARE] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/queenofpain/queenofpain.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"4480"		} //Wings of the Ruby Web
+				"Wearable2"		{	"ItemDef"		"5588"		} //"Horns of Blight"
+				"Wearable3" 	{	"ItemDef"		"5589"		} //"Shard of Blight"
+				"Wearable4"		{	"ItemDef"		"5587"		} //"Epaulette of Blight"
+			}
+		}
+	}
+
+	"spectator_drow"	
+	//idle_alt [ACT_DOTA_IDLE_RARE] 
+	//taunt01_whats_that [ACT_DOTA_TAUNT+whats_that] 
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/drow/drow.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"4365"		} //Bow of the Howling Wind
+				"Wearable2"		{	"ItemDef"		"6785"		} //"Mania's Mask"
+				"Wearable3" 	{	"ItemDef"		"5876"		} //Steamcape
+				"Wearable4"		{	"ItemDef"		"5249"		} //"Jewel of the Forest Boots"
+				"Wearable5"		{	"ItemDef"		"5248"		} //"Jewel of the Forest Pauldrons"
+				"Wearable6"		{	"ItemDef"		"5247"		} //Jewel of the Forest Gloves"
+				"Wearable7"		{	"ItemDef"		"5199"		} //Quiver of the Boreal Watch"
+			}
+		}
+	}
+
+	"spectator_sheep"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/items/hex/sheep_hex/sheep_hex.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	"spectator_greevil"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/courier/greevil/gold_greevil.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	"spectator_greevilkeeper"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/creeps/greevil_shopkeeper/greevil_shopkeeper.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	"spectator_lanaya"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/lanaya/lanaya.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"4696"		} //Brooch of the Third Insight
+				"Wearable2"		{	"ItemDef"		"4697"		} //Mask of the Third Insight
+				"Wearable3" 	{	"ItemDef"		"4695"		} //Sash of the Third Insight
+			}
+		}
+	}
+	
+	"spectator_mirana"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/heroes/mirana/mirana.vmdl"
+		"ModelScale"				"1"
+		"Level"						"1"
+
+		"Ability1"					"spectator_passive"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"TeamName"					"DOTA_TEAM_GOODGUYS"
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+		"Creature"
+		{	
+			"AttachWearables"
+			{
+				"Wearable1"		{	"ItemDef"		"6874"		} //"Nightsilver Griffon"
+				"Wearable2"		{	"ItemDef"		"6658"		} //Crescent Bow
+				"Wearable3" 	{	"ItemDef"		"6659"		} //bracers
+				"Wearable4"		{	"ItemDef"		"6660"		} //style
+				"Wearable5"		{	"ItemDef"		"6662"		} //quiver
+				"Wearable6"		{	"ItemDef"		"6663"		} //shoulder
+				"Wearable7"		{	"ItemDef"		"6657"		} //skirt
+			}
+		}
+	}
+	
+}
