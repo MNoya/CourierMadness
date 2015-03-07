@@ -298,6 +298,8 @@ function GameMode:OnGameInProgress()
 	for i=0,9 do
 		j[tostring(i)] = PlayerResource:GetSteamAccountID(i)
 	end
+	print("TABLE J of GetSteamAccountIDs:")
+	DeepPrintTable(j)
 	FireGameEvent("stat_collection_steamID", j)
 
 	-- Update scoreboard
