@@ -70,7 +70,7 @@ function OnTouchDeathZone( trigger )
 	end)
 
 	-- WOW
-	if GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
+	if GameRules.highscore and GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
 		if GameRules.score > GameRules.highscore then
 			print("NEW HIGHSCORE REACHED, WOW")
 			PlayNewHighscorePrediction()
@@ -384,3 +384,24 @@ function PlayExtraCourierDeathParticle(target)
 	end
 end
 
+-- Accept the player being inside the move box
+function kill_box_ok( trigger )
+	local hero = trigger.activator
+	hero.inside_box = true
+
+	print("Player Inside the move box")
+	Timers:RemoveTimer("timer_kill_box")
+end
+
+-- Kill players outside of the move_box
+function kill_box( trigger )
+	local hero = trigger.activator
+
+	Timers:CreateTimer("timer_kill_box", { endTime = 1, 
+		callback = function()
+			print("PLAYER OUTSIDE THE BOX",hero:GetUnitName())
+			hero:ForceKill(true)
+			GameRules:SendCustomMessage("<font color='#FFC800'>No stepping outside of the movebox, you can't handle the dank</font>", 0, 0)
+	end} )
+
+end

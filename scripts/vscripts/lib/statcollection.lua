@@ -261,7 +261,7 @@ function getPlayerSnapshot(playerID)
             --hero = heroData,
             --items = itemData,
             --abilities = abilityData,
-            --connectionStatus = PlayerResource:GetConnectionState(playerID),
+            connectionStatus = PlayerResource:GetConnectionState(playerID),
             scores = scoreData
         }
     end

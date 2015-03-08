@@ -77,6 +77,7 @@ function GameMode:InitGameMode()
 	self.bSeenWaitForPlayers = false
 
 	GameRules.rounds_played = 0
+	GameRules.highscore = 0
 	GameRules.scores_list = {}
 
 	GameRules.score = 0 -- +1 with each enemy is removed, +1*multiplier when using ult

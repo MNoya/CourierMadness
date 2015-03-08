@@ -33,10 +33,11 @@ function CheckCollision( event )
 		local name = target:GetUnitName()
 		local collision_size = unit_table[name].RingRadius
 		
-		if distance <= collision_size then
+		if distance <= collision_size and not target.touched then
 			print("Got hit by a "..name)
 			local currentLives = caster:GetHealth()
 			local maxHP = caster:GetMaxHealth()
+			target.touched = true
 
 			if name == "fluffy_tail" then
 				print("+ 1 life")
@@ -183,14 +184,6 @@ function Ultimate( event )
 
 	FireGameEvent( 'update_scoreboard', { player_ID = pID, score = GameRules.score } )
 
-	-- WOW
-	if GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
-		if GameRules.score > GameRules.highscore then
-			print("NEW HIGHSCORE REACHED, WOW")
-			PlayNewHighscorePrediction()
-		end
-	end
-
 	-- Reset multiplier and enemy tables
 	GameRules.multiplier = 0
 	GameRules.couriers = {}
@@ -206,5 +199,13 @@ function Ultimate( event )
 	Timers:CreateTimer(1.0, function()
 		SendToServerConsole("host_timescale 1")
 	end)
+
+	-- WOW
+	if GameRules.highscore and GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
+		if GameRules.score > GameRules.highscore then
+			print("NEW HIGHSCORE REACHED, WOW")
+			PlayNewHighscorePrediction()
+		end
+	end
 
 end

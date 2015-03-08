@@ -206,7 +206,7 @@ function StartSoundTracks()
 		useGameTime = false,
 		callback = function()
 			SendToConsole("stopsound")
-			local track_number = tostring(RandomInt(1,6))
+			local track_number = tostring(RandomInt(1,8))
 			print("Now playing "..sound_tracks[track_number].Name)
 
 			-- Track the string in case we want to stop the sound at any point
