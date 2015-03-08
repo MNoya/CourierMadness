@@ -27,10 +27,11 @@ function CheckCollision( event )
 		local name = target:GetUnitName()
 		local collision_size = unit_table[name].RingRadius
 		
-		if distance <= collision_size then
+		if distance <= collision_size and not target.touched then
 			print("Got hit by a "..name)
 			local currentLives = caster:GetHealth()
 			local maxHP = caster:GetMaxHealth()
+			target.touched = true
 
 			if name == "fluffy_tail" then
 				print("+ 1 life")
