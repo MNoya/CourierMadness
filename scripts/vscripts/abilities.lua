@@ -1,19 +1,25 @@
 function MoveLeft( event )
 	local caster = event.caster
+	local offset = event.offset
+	if not offset then offset = 200 end
+
 	local origin = caster:GetAbsOrigin()
-	local pos = Vector(origin.x-200, origin.y, origin.z)
+	local pos = Vector(origin.x-offset, origin.y, origin.z)
 	ExecuteOrderFromTable({ UnitIndex = caster:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = pos, Queue = false})
-	UpdateCamera(caster,origin.x-200)
-	--print("Moving to "..origin.x-200)
+	UpdateCamera(caster,origin.x-offset)
+	--print("Moving to "..origin.x-offset)
 end
 
 function MoveRight( event )
 	local caster = event.caster
+	local offset = event.offset
+	if not offset then offset = 200 end
+
 	local origin = caster:GetAbsOrigin()
-	local pos = Vector(origin.x+200, origin.y, origin.z)
+	local pos = Vector(origin.x+offset, origin.y, origin.z)
 	ExecuteOrderFromTable({ UnitIndex = caster:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = pos, Queue = false}) 
-	UpdateCamera(caster,origin.x+200)
-	--print("Moving to "..origin.x+200)
+	UpdateCamera(caster,origin.x+offset)
+	--print("Moving to "..origin.x+offset)
 end
 
 function CheckCollision( event )
