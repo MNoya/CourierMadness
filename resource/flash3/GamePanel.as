@@ -140,7 +140,7 @@
 		
 		private function resetMouseStreamText() : void
 		{
-			MouseStreamCheckbox.textField.textColor = 0xFFFF00;
+			MouseStreamCheckbox.textField.textColor = 0xFFC800;
 
 			// make the text bigger
 			var format:TextFormat = new TextFormat();
