@@ -70,7 +70,7 @@ function OnTouchDeathZone( trigger )
 	end)
 
 	-- WOW
-	if GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
+	if GameRules.highscore and GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
 		if GameRules.score > GameRules.highscore then
 			print("NEW HIGHSCORE REACHED, WOW")
 			PlayNewHighscorePrediction()
@@ -384,3 +384,14 @@ function PlayExtraCourierDeathParticle(target)
 	end
 end
 
+
+
+-- Kill players outside of the move_box
+function kill_box( trigger )
+	local hero = trigger.activator
+
+	print("KILL NASTY HACKER",hero:GetUnitName())
+
+	hero:ForceKill(true)
+	GameRules:SendCustomMessage("<font color='#FFC800'>No stepping outside of the movebox, you can't handle the dank</font>", 0, 0)
+end

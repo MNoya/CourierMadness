@@ -177,14 +177,6 @@ function Ultimate( event )
 
 	FireGameEvent( 'update_scoreboard', { player_ID = pID, score = GameRules.score } )
 
-	-- WOW
-	if GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
-		if GameRules.score > GameRules.highscore then
-			print("NEW HIGHSCORE REACHED, WOW")
-			PlayNewHighscorePrediction()
-		end
-	end
-
 	-- Reset multiplier and enemy tables
 	GameRules.multiplier = 0
 	GameRules.couriers = {}
@@ -200,5 +192,13 @@ function Ultimate( event )
 	Timers:CreateTimer(1.0, function()
 		SendToServerConsole("host_timescale 1")
 	end)
+
+	-- WOW
+	if GameRules.highscore and GameRules.highscore > 0 and not GameRules.playedHighscorePredictionSound then
+		if GameRules.score > GameRules.highscore then
+			print("NEW HIGHSCORE REACHED, WOW")
+			PlayNewHighscorePrediction()
+		end
+	end
 
 end
