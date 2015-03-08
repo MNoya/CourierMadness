@@ -30,6 +30,8 @@
 		private var _loc_2:VComponent;
 		private var _loc_3;
 
+		private var MouseStreamCheckbox:Object;
+
 		public function GamePanel() {
 			// constructor code
 		}
@@ -57,10 +59,13 @@
 			ExitButton.addEventListener(ButtonEvent.CLICK, onExitButtonClicked);
 			ExitButton.label = Globals.instance.GameInterface.Translate("#EXIT");
 
-			var MouseStreamCheckbox = replaceWithValveComponent(mouseStreamCheckbox, "DotaCheckBoxDota");
+			MouseStreamCheckbox = replaceWithValveComponent(mouseStreamCheckbox, "DotaCheckBoxDota");
 			MouseStreamCheckbox.addEventListener(ButtonEvent.CLICK, onMouseStreamChecked);
-			MouseStreamCheckbox.label = Globals.instance.GameInterface.Translate("#MouseStreamCheckboxLabel");
+			trace("textfield width: " + MouseStreamCheckbox.textField.width);
+			trace("textfield height: " + MouseStreamCheckbox.textField.height);
 
+			MouseStreamCheckbox.label = Globals.instance.GameInterface.Translate("#MouseStreamCheckboxLabel");
+			resetMouseStreamText();
 
 			//ExitButton.width = 220;
 			//ExitButton.height = 45;
@@ -85,6 +90,9 @@
 		public function onMouseStreamChecked(event:ButtonEvent) {
 			trace("onMouseStreamChecked");
 			this.gameAPI.SendServerCommand("MouseStreamToggle");
+
+			// color resets, so we have to set it again.
+			resetMouseStreamText();
 		}
 
 		public function onExitButtonClicked(event:ButtonEvent) {
@@ -130,6 +138,20 @@
 			this._btnNo.addEventListener(ButtonEvent.CLICK, this._onClickNo);	
 		}
 		
+		private function resetMouseStreamText() : void
+		{
+			MouseStreamCheckbox.textField.textColor = 0xFFFF00;
+
+			// make the text bigger
+			var format:TextFormat = new TextFormat();
+			format.size = 16;
+			MouseStreamCheckbox.textField.defaultTextFormat = format;
+
+
+			MouseStreamCheckbox.textField.setTextFormat(format);
+
+		}
+
 		private function _onClickYes(event:ButtonEvent) : void
 		{
 			this.gameAPI.SendServerCommand("Disconnecting");
