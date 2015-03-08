@@ -549,6 +549,8 @@ function GameMode:OnHeroInGame(hero)
 	-- Store this hero handle in this table.
 	table.insert(self.vPlayers, hero)
 
+	hero.lastCameraUpdateTime = GameRules:GetGameTime()
+
 	--dota_camera_lock_lerp
 	--dota_camera_speed
 
@@ -716,7 +718,6 @@ end
 
 function MouseStreamToggle( hPlayer )
 	local hero = hPlayer:GetAssignedHero()
-	if hero == nil then print ("nil hero.") end
 	if not MOUSE_STREAM_ENABLED then
 		print("Enabling MouseStream")
 		MOUSE_STREAM_ENABLED = true
@@ -734,7 +735,7 @@ function MouseStreamToggle( hPlayer )
 				if cursorGridX < originGridX then 
 					moveRight = false
 				end
-				if cursorGridX ~= originGridX then
+				if cursorGridX > originGridX+.8 or cursorGridX < originGridX-.8 then
 					if moveRight then MoveRight(event)
 					else MoveLeft(event) end
 				else

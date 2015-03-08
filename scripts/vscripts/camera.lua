@@ -29,6 +29,12 @@ end
 -- When a MoveLeft/MoveRight order is executed, the hero.camera will be set to spawn +/-200 X away from the hero's original position
 -- This does't take care of the player using Stop/Hold or change the movement direction, but should help in making it less choppy
 function UpdateCamera( hero, newX )
+
+	-- make this function be called a max of once per 2 secs for each player.
+	if GameRules:GetGameTime()-hero.lastCameraUpdateTime < 2 then
+		return
+	end
+
 	local old_camera = hero.camera:GetAbsOrigin()
 	local pos_camera = Vector(newX , old_camera.y, old_camera.z)
 
@@ -42,6 +48,7 @@ function UpdateCamera( hero, newX )
 	else
 		PlayerResource:SetCameraTarget(0, hero)
 	end
+	hero.lastCameraUpdateTime = GameRules:GetGameTime()
 end
 
 	
