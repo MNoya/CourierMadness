@@ -18,6 +18,8 @@ USE_CUSTOM_HERO_LEVELS = true           -- Should we allow heroes to have custom
 MAX_LEVEL = 50                          -- What level should we let heroes get to?
 USE_CUSTOM_XP_VALUES = true             -- Should we use custom XP values to level up heroes, or the default Dota numbers?
 
+MOUSE_STREAM_ENABLED = false
+
 -- Fill this table up with the required XP per level if you want to change it
 XP_PER_LEVEL_TABLE = {}
 for i=1,MAX_LEVEL do
@@ -690,6 +692,17 @@ Convars:RegisterCommand( "Disconnecting", function(name, p)
 	end
 end, "A player chooses exit", 0 )
 
+
+Convars:RegisterCommand( "MouseStreamToggle", function(name, p)
+	local cmdPlayer = Convars:GetCommandClient()
+	if cmdPlayer then
+		local playerID = cmdPlayer:GetPlayerID()
+		if playerID ~= nil and playerID ~= -1 then
+			MouseStreamToggle(cmdPlayer)
+		end
+	end
+end, "", 0 )
+
 function GameMode:EndGame( player, score)
 	-- Send stats final
 	statcollection.sendStats()
@@ -699,4 +712,40 @@ function GameMode:EndGame( player, score)
 	Timers:CreateTimer(8, function() GameRules:SendCustomMessage("<font color='#FFC800'>2</font>",0,0) end)
 	Timers:CreateTimer(9, function() GameRules:SendCustomMessage("<font color='#FFC800'>1...</font>",0,0) end)
 	Timers:CreateTimer(10, function() SendToConsole("disconnect") end)
+end
+
+function MouseStreamToggle( hPlayer )
+	local hero = hPlayer:GetAssignedHero()
+	if hero == nil then print ("nil hero.") end
+	if not MOUSE_STREAM_ENABLED then
+		print("Enabling MouseStream")
+		MOUSE_STREAM_ENABLED = true
+		hPlayer.cursorStream = FlashUtil:RequestDataStream( "cursor_position_world", .01, hPlayer:GetPlayerID(), function(playerID, cursorPos)
+			local validPos = true
+			if cursorPos.x > 30000 or cursorPos.y > 30000 or cursorPos.z > 30000 then
+				validPos = false
+			end
+			if validPos and hero:IsAlive() then
+				local event = {caster = hero, offset = 100}
+				-- snap cursor to a grid square
+				local cursorGridX = GridNav:WorldToGridPosX(cursorPos.x)
+				local originGridX = GridNav:WorldToGridPosX(hero:GetAbsOrigin().x)
+				local moveRight = true
+				if cursorGridX < originGridX then 
+					moveRight = false
+				end
+				if cursorGridX ~= originGridX then
+					if moveRight then MoveRight(event)
+					else MoveLeft(event) end
+				else
+					hero:Stop()
+				end
+			end
+
+		end)
+	else
+		FlashUtil:StopDataStream( hPlayer.cursorStream )
+		MOUSE_STREAM_ENABLED = false
+		hPlayer.cursorStream = nil
+	end
 end

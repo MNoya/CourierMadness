@@ -29,7 +29,7 @@
 		
 		private var _loc_2:VComponent;
 		private var _loc_3;
-			
+
 		public function GamePanel() {
 			// constructor code
 		}
@@ -56,6 +56,12 @@
 			var ExitButton = replaceWithValveComponent(btn_replace, "chrome_button_normal");
 			ExitButton.addEventListener(ButtonEvent.CLICK, onExitButtonClicked);
 			ExitButton.label = Globals.instance.GameInterface.Translate("#EXIT");
+
+			var MouseStreamCheckbox = replaceWithValveComponent(mouseStreamCheckbox, "DotaCheckBoxDota");
+			MouseStreamCheckbox.addEventListener(ButtonEvent.CLICK, onMouseStreamChecked);
+			MouseStreamCheckbox.label = Globals.instance.GameInterface.Translate("#MouseStreamCheckboxLabel");
+
+
 			//ExitButton.width = 220;
 			//ExitButton.height = 45;
 						
@@ -75,7 +81,12 @@
 				trace("Game Restarting is invisible")
 			}
 		}
-		
+	
+		public function onMouseStreamChecked(event:ButtonEvent) {
+			trace("onMouseStreamChecked");
+			this.gameAPI.SendServerCommand("MouseStreamToggle");
+		}
+
 		public function onExitButtonClicked(event:ButtonEvent) {
 			
 			//Credits to Ractis for this

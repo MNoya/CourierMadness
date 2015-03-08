@@ -1,4 +1,3 @@
-
 -- Required files to be visible from anywhere
 require( 'couriermadness' )
 require( 'timers' )
@@ -7,7 +6,9 @@ require( 'abilities' )
 require( 'camera' )
 require( 'popups' )
 require( 'sounds' )
+require( 'FlashUtil' )
 require( 'lib.statcollection' )
+
 statcollection.addStats({
 	modID = '70a0be5310f54fa1811657f5d5a0f884'
 })
