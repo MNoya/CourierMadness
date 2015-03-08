@@ -291,6 +291,7 @@ function ApplyDismemberAnimation( unit )
 	local start_time = GameRules:GetGameTime()
 	local time_until_restart = 20
 	animations:ApplyDataDrivenModifier(unit, unit, "modifier_courier_capture", {duration=time_until_restart})
+	animations:RemoveSelf()
 
 	Timers:CreateTimer(time_until_restart-0.1, function() 
 		if IsValidEntity(unit) then unit:RemoveSelf()	

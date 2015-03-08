@@ -48,6 +48,7 @@ function CheckCollision( event )
 					local item = CreateItem("item_apply_modifiers", caster, caster)
 					item:ApplyDataDrivenModifier(caster, caster, "modifier_extra_hp", {})
 					caster:Heal(1, caster)
+					item:RemoveSelf()
 				end
 				PopupHealing(caster, 1)
 				-- Fluffy Tail Touched
@@ -146,7 +147,6 @@ function Ultimate( event )
 
 			-- Disabled this one because it lags too hard
 			--local particle = ParticleManager:CreateParticle("particles/econ/items/brewmaster/brewmaster_offhand_elixir/brewmaster_thunder_clap_elixir.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
-
 
 			target:RemoveSelf()
 			couriers_killed = couriers_killed + 1
