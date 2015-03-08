@@ -392,6 +392,6 @@ function kill_box( trigger )
 
 	print("KILL NASTY HACKER",hero:GetUnitName())
 
-	hero:ForceKill(true)
-	GameRules:SendCustomMessage("<font color='#FFC800'>No stepping outside of the movebox, you can't handle the dank</font>", 0, 0)
+	--hero:ForceKill(true)
+	--GameRules:SendCustomMessage("<font color='#FFC800'>No stepping outside of the movebox, you can't handle the dank</font>", 0, 0)
 end
