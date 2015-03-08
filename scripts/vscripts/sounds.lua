@@ -46,9 +46,8 @@ player_death_trollsounds = {
 
 highscore_sounds = {
 	[1] = "CourierMadness.SylarToFall",
-	[2] = "CourierMadness.WOAW",
-	[3] = "omniknight_omni_inthebag_01",
-	[4] = "omniknight_omni_inthebag_02"
+	[2] = "CourierMadness.HistoryOfDota",
+	[3] = "CourierMadness.WOAW"
 }
 
 function PlayUltimateSounds()
@@ -180,8 +179,8 @@ end
 
 --when a new highscore would be scored
 function PlayNewHighscorePrediction(target)
-	EmitGlobalSound(highscore_sounds[1])
-	Timers:CreateTimer(2.5, function() EmitGlobalSound(highscore_sounds[2]) end)
+	EmitGlobalSound(highscore_sounds[RandomInt(1,2)])
+	Timers:CreateTimer(4, function() EmitGlobalSound(highscore_sounds[3]) end)
 
 	GameRules.playedHighscorePredictionSound = true
 
@@ -196,13 +195,9 @@ end
 -- a new highscore updated
 function PlayNewHighscore()
 	
-	if RollPercentage(50) then
-		local randomWin = RandomInt(1,3)
-		local winSound = "omniknight_omni_win_0"..randomWin
-		EmitGlobalSound(winSound)
-	else
-		EmitGlobalSound("CourierMadness.HistoryOfDota")
-	end
+	local randomWin = RandomInt(1,3)
+	local winSound = "omniknight_omni_win_0"..randomWin
+	EmitGlobalSound(winSound)
 end
 
 function StartSoundTracks()

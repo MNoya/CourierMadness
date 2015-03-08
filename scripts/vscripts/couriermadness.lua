@@ -296,10 +296,10 @@ function GameMode:OnGameInProgress()
 	-- This is for Flash to know its steamID
 	j = {}
 	for i=0,9 do
-		j[tostring(i)] = PlayerResource:GetSteamAccountID(i)
+		j[i+1] = tostring(PlayerResource:GetSteamAccountID(i))
 	end
-	print("TABLE J of GetSteamAccountIDs:")
-	DeepPrintTable(j)
+	local result = table.concat(j, ",")
+	j = {ids=result}
 	FireGameEvent("stat_collection_steamID", j)
 
 	-- Update scoreboard

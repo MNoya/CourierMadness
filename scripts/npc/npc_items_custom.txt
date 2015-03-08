@@ -14,6 +14,10 @@
 				"IsHidden"				"1"	
 	
 				"OverrideAnimation"     "ACT_DOTA_CAPTURE"
+				"States"
+				{
+					"MODIFIER_STATE_NO_HEALTH_BAR"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
 			}
 			"modifier_courier_idle"
 			{
