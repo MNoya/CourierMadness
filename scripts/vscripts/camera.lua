@@ -36,6 +36,19 @@ function UpdateCamera( hero, newX )
 	end
 
 	local old_camera = hero.camera:GetAbsOrigin()
+
+	local heroPos = hero:GetAbsOrigin()
+	local offset = math.abs(heroPos.x-newX)+200
+	-- invert the x if the hero is at an edge.
+	local re = GameMode.rightEdge:GetAbsOrigin()
+	local le = GameMode.leftEdge:GetAbsOrigin()
+
+	if re.x-heroPos.x < offset then
+		newX = heroPos.x-offset
+	elseif math.abs(le.x)-math.abs(heroPos.x) < offset then
+		newX = heroPos.x+offset
+	end
+
 	local pos_camera = Vector(newX , old_camera.y, old_camera.z)
 
 	local new_camera = CreateUnitByName(hero.camera:GetUnitName(), pos_camera, false, nil, nil, hero.camera:GetTeamNumber())
