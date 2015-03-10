@@ -102,6 +102,9 @@ function GameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetThink("SetPermanentDaytime", self)
 	GameRules:GetGameModeEntity():SetThink( "DisableCheats", self )
 
+	self.leftEdge = Entities:FindByName(nil, "left_edge")
+	self.rightEdge = Entities:FindByName(nil, "right_edge")
+
 	print('[COURIERMADNESS] Done loading couriermadness gamemode!\n\n')
 end
 

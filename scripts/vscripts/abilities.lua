@@ -6,7 +6,7 @@ function MoveLeft( event )
 	local origin = caster:GetAbsOrigin()
 	local pos = Vector(origin.x-offset, origin.y, origin.z)
 	ExecuteOrderFromTable({ UnitIndex = caster:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = pos, Queue = false})
-	UpdateCamera(caster,origin.x-300)
+	UpdateCamera(caster,origin.x-offset)
 	--print("Moving to "..origin.x-offset)
 end
 
@@ -18,7 +18,7 @@ function MoveRight( event )
 	local origin = caster:GetAbsOrigin()
 	local pos = Vector(origin.x+offset, origin.y, origin.z)
 	ExecuteOrderFromTable({ UnitIndex = caster:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = pos, Queue = false}) 
-	UpdateCamera(caster,origin.x+300)
+	UpdateCamera(caster,origin.x+offset)
 	--print("Moving to "..origin.x+offset)
 end
 
