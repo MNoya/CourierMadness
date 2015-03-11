@@ -1,0 +1,10 @@
+"AddonInfo"
+{
+	"addonSteamAppID"		"816"
+	"addontitle"		"CourierMadness"
+	"addonversion"		"1.0"
+	"addontagline"		"CourierMadness"
+	"addonauthor"		"Noya"
+	"addonContent_Campaign"		"0"
+	"addonDescription"		"Minigame"
+}
