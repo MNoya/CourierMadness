@@ -1,5 +1,0 @@
-# Cache crap that Valve autogenerates
-*.bin
-
-# Map Files
-*.vpk
