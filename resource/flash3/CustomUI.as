@@ -57,7 +57,11 @@
 			
 			this.myPopup.setup(this.gameAPI, this.globals);
 			
-			trace("myGamePanel.setup");
+			trace("myPopup.setup");
+
+			this.myMusicPlayer.setup(this.gameAPI, this.globals);
+			
+			trace("myPopup.setup");
 			
 			this.gameAPI.SubscribeToGameEvent("show_ultimate_ability", this.AbilityButtonEvent);
 			
