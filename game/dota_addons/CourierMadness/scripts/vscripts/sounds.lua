@@ -111,7 +111,7 @@ function PlayPlayerDeathSounds()
 	end)
 
 	Timers:CreateTimer(20, function() 
-		GameMode:PlayMusicForEveryone()
+		--GameMode:PlayMusicForEveryone()
 	end)
 end
 

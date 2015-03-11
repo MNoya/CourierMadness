@@ -761,4 +761,5 @@ function GameMode:PlayMusicForEveryone(  )
 			ply:PlayMusic()
 		end
 	end
+	print("PlayMusicForEveryone called.")
 end
