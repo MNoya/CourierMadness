@@ -734,12 +734,13 @@ function MouseStreamToggle( hPlayer )
 			if validPos and hero:IsAlive() then
 				local heroPos = hero:GetAbsOrigin()
 				--if cursorSnap ~= hPlayer.lastCursorPos then
-				local event = {caster = hero, offset = 90}
+				local offset = 20
+				local event = {caster = hero, offset = offset}
 				local moveRight = true
 				if cursorPos.x < heroPos.x then 
 					moveRight = false
 				end
-				if cursorPos.x > heroPos.x + 60 or cursorPos.x < heroPos.x - 60 then
+				if cursorPos.x > heroPos.x + offset or cursorPos.x < heroPos.x - offset then
 					if moveRight then MoveRight(event)
 					else MoveLeft(event) end
 				end
