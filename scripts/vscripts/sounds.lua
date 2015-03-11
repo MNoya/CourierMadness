@@ -109,6 +109,8 @@ function PlayPlayerDeathSounds()
 			GameRules.play_highscore_sound = false
 		end
 	end)
+
+	local ply = PlayerResource:GetPlayer(0)
 	Timers:CreateTimer(20, function() ply:PlayMusic() end)
 end
 
@@ -141,6 +143,7 @@ function PlayHighDifficultyLevel( )
 		end
 	end
 
+	local ply = PlayerResource:GetPlayer(0)
 	Timers:CreateTimer(20, function() ply:PlayMusic() end)
 end
 
