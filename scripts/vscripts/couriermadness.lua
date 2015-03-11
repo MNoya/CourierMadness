@@ -94,13 +94,15 @@ function GameMode:InitGameMode()
 	GameRules.golden_sheeps = {}
 
 	GameRules.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
-	GameRules.Soundtrack = LoadKeyValues("scripts/soundtrack.kv")
+	--GameRules.Soundtrack = LoadKeyValues("scripts/soundtrack.kv")
 
 	-- 1 HP per bar marker
 	SendToServerConsole("dota_health_per_vertical_marker 1")
 
 	GameRules:GetGameModeEntity():SetThink("SetPermanentDaytime", self)
 	GameRules:GetGameModeEntity():SetThink( "DisableCheats", self )
+
+	MusicPlayer:Init("scripts/soundtrack.kv")
 
 	self.leftEdge = Entities:FindByName(nil, "left_edge")
 	self.rightEdge = Entities:FindByName(nil, "right_edge")
@@ -284,9 +286,6 @@ function GameMode:OnGameInProgress()
 	-- Stop All Sounds
 	SendToConsole("stopsound")
 
-	-- Play Meme Sounds
-	StartSoundTracks()
-
 	-- ?? Ony spawn units if the game is running. 
 	-- Game is running if the player 0 hero isn't dead. 
 	-- Else there is a cinematic interval and it starts again
@@ -298,6 +297,13 @@ function GameMode:OnGameInProgress()
 		ultimate:ApplyDataDrivenModifier(hero, hero, "modifier_hammer_glow", {}) 
 	end)
 	
+	-- Play Meme Sounds
+	if not player.musicPlayer then
+		MusicPlayer:AttachMusicPlayer(player)
+	else
+		player:PlayMusic()
+	end
+
 	-- Stats Collection Highscores
 	-- This is for Flash to know its steamID
 	j = {}
@@ -730,19 +736,16 @@ function MouseStreamToggle( hPlayer )
 				validPos = false
 			end
 			if validPos and hero:IsAlive() then
-				local event = {caster = hero, offset = 100}
-				-- snap cursor to a grid square
-				local cursorGridX = GridNav:WorldToGridPosX(cursorPos.x)
-				local originGridX = GridNav:WorldToGridPosX(hero:GetAbsOrigin().x)
+				local heroPos = hero:GetAbsOrigin()
+				--if cursorSnap ~= hPlayer.lastCursorPos then
+				local event = {caster = hero, offset = 90}
 				local moveRight = true
-				if cursorGridX < originGridX then 
+				if cursorPos.x < heroPos.x then 
 					moveRight = false
 				end
-				if cursorGridX > originGridX+.8 or cursorGridX < originGridX-.8 then
+				if cursorPos.x > heroPos.x + 60 or cursorPos.x < heroPos.x - 60 then
 					if moveRight then MoveRight(event)
 					else MoveLeft(event) end
-				else
-					hero:Stop()
 				end
 			end
 

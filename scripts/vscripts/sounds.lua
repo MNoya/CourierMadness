@@ -92,7 +92,7 @@ function PlayPlayerDeathSounds()
 	print("RIP PLAYER")
 
 	SendToConsole("stopsound")
-	Timers:RemoveTimer("Soundtrack")
+
 	EmitGlobalSound("Hero_Undying.Mausoleum")
 
 	for i=10,19,3 do
@@ -109,14 +109,13 @@ function PlayPlayerDeathSounds()
 			GameRules.play_highscore_sound = false
 		end
 	end)
-	Timers:CreateTimer(20, function() StartSoundTracks() end)
+	Timers:CreateTimer(20, function() ply:PlayMusic() end)
 end
 
 function PlayHighDifficultyLevel( )
 	print(GameRules.difficulty,"reached!")
 
 	SendToConsole("stopsound")
-	Timers:RemoveTimer("Soundtrack")
 
 	if RollPercentage(50) then
 		EmitGlobalSound("CourierMadness.AttackOnTitanIntro")
@@ -142,7 +141,7 @@ function PlayHighDifficultyLevel( )
 		end
 	end
 
-	Timers:CreateTimer(20, function() StartSoundTracks() end)
+	Timers:CreateTimer(20, function() ply:PlayMusic() end)
 end
 
 function PlayFluffyTailDeathSounds()
@@ -198,24 +197,4 @@ function PlayNewHighscore()
 	local randomWin = RandomInt(1,3)
 	local winSound = "omniknight_omni_win_0"..randomWin
 	EmitGlobalSound(winSound)
-end
-
-function StartSoundTracks()
-	local sound_tracks = GameRules.Soundtrack
-	Timers:CreateTimer("Soundtrack", {
-		useGameTime = false,
-		callback = function()
-			SendToConsole("stopsound")
-			local track_number = tostring(RandomInt(1,8))
-			print("Now playing "..sound_tracks[track_number].Name)
-
-			-- Track the string in case we want to stop the sound at any point
-			GameRules.soundtrack = sound_tracks[track_number].Name
-
-			EmitGlobalSound(GameRules.soundtrack)
-
-			-- Set to play a new track after the duration
-			return sound_tracks[track_number].Duration+1
-
-		end	})
 end

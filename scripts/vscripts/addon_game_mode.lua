@@ -6,6 +6,7 @@ require( 'abilities' )
 require( 'camera' )
 require( 'popups' )
 require( 'sounds' )
+require( 'music_player' )
 require( 'FlashUtil' )
 require( 'lib.statcollection' )
 
