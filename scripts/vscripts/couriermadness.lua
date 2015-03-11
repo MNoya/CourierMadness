@@ -298,11 +298,7 @@ function GameMode:OnGameInProgress()
 	end)
 	
 	-- Play Meme Sounds
-	if not player.musicPlayer then
-		MusicPlayer:AttachMusicPlayer(player)
-	else
-		player:PlayMusic()
-	end
+	GameMode:PlayMusicForEveryone()
 
 	-- Stats Collection Highscores
 	-- This is for Flash to know its steamID
@@ -551,12 +547,12 @@ end
 function GameMode:OnHeroInGame(hero)
 	print("[COURIERMADNESS] Hero spawned in game for first time -- " .. hero:GetUnitName())
 
+	local id = hero:GetPlayerID()
 	-- Store a reference to the player handle inside this hero handle.
-	hero.player = PlayerResource:GetPlayer(hero:GetPlayerID())
+	hero.player = PlayerResource:GetPlayer(id)
 	-- Store the player's name inside this hero handle.
-	hero.playerName = PlayerResource:GetPlayerName(hero:GetPlayerID())
-	-- Store this hero handle in this table.
-	table.insert(self.vPlayers, hero)
+	hero.playerName = PlayerResource:GetPlayerName(id)
+	self.vPlayers[id] = hero.player
 
 	hero.lastCameraUpdateTime = GameRules:GetGameTime()
 
@@ -754,5 +750,15 @@ function MouseStreamToggle( hPlayer )
 		FlashUtil:StopDataStream( hPlayer.cursorStream )
 		MOUSE_STREAM_ENABLED = false
 		hPlayer.cursorStream = nil
+	end
+end
+
+function GameMode:PlayMusicForEveryone(  )
+	for id,ply in pairs(self.vPlayers) do
+		if not ply.musicPlayer then
+			MusicPlayer:AttachMusicPlayer(ply)
+		else
+			ply:PlayMusic()
+		end
 	end
 end

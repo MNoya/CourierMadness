@@ -110,8 +110,9 @@ function PlayPlayerDeathSounds()
 		end
 	end)
 
-	local ply = PlayerResource:GetPlayer(0)
-	Timers:CreateTimer(20, function() ply:PlayMusic() end)
+	Timers:CreateTimer(20, function() 
+		GameMode:PlayMusicForEveryone()
+	end)
 end
 
 function PlayHighDifficultyLevel( )
@@ -143,8 +144,9 @@ function PlayHighDifficultyLevel( )
 		end
 	end
 
-	local ply = PlayerResource:GetPlayer(0)
-	Timers:CreateTimer(20, function() ply:PlayMusic() end)
+	Timers:CreateTimer(20, function() 
+		GameMode:PlayMusicForEveryone()
+	end)
 end
 
 function PlayFluffyTailDeathSounds()
