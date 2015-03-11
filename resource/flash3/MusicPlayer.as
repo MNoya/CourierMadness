@@ -117,6 +117,22 @@
 			
 			trace("Stage Size: ",stageW,stageH);
 						
+			this.x = stageW-300*yScale;
+			this.y = 25*yScale;		
+			
+			this.width = this.width*yScale;
+			this.height	 = this.height*yScale;
+			
+			trace("#Result Resize: ",this.x,this.y,yScale);
+					 
+			//Now we just set the scale of this element, because these parameters are already the inverse ratios
+			this.scaleX = xScale*1/4;
+			this.scaleY = yScale*1/4;
+			
+			trace("#Highscore Panel  Resize");
+
+			/*trace("Stage Size: ",stageW,stageH);
+						
 			this.x = this.x*yScale;
 			this.x += 1/6*this.x
 			this.y = this.y*yScale;
@@ -128,21 +144,7 @@
 			this.scaleX = xScale*1/4;
 			this.scaleY = yScale*1/4;
 			
-			trace("#MusicPlayer Panel Resize");
+			trace("#MusicPlayer Panel Resize");*/
 		}
-		/*
-		public function screenResize(stageW:int, stageH:int, xScale:Number, yScale:Number, wide:Boolean) {
-
-			trace("Stage Size: ",stageW,stageH);
-			trace("y scale: " + yScale);
-
-			this.x = 16*stageW/20;
-			this.y = 18*stageH/20; //A bit on top of the middle to show the chat
-					 
-			//Now we just set the scale of this element, because these parameters are already the inverse ratios
-			this.scaleX = xScale;
-			this.scaleY = yScale;
-		}*/
-
 	}
 }
