@@ -1,23 +1,15 @@
 -- Required files to be visible from anywhere
 require( 'couriermadness' )
-require( 'timers' )
+require( 'libraries/timers' )
+require( 'statcollection/init' )
 require( 'spawn' )
 require( 'abilities' )
 require( 'camera' )
 require( 'popups' )
 require( 'sounds' )
 require( 'music_player' )
-require( 'FlashUtil' )
-require( 'lib.statcollection' )
-
-statcollection.addStats({
-	modID = '70a0be5310f54fa1811657f5d5a0f884'
-})
 
 function Precache( context )
-
-	print("[BAREBONES] Performing pre-load precache")
-
 	-- Particles can be precached individually or by folder
 	-- It it likely that precaching a single particle system will precache all of its children, but this may not be guaranteed
 	PrecacheResource("particle", "particles/econ/items/legion/legion_weapon_voth_domosh/legion_duel_start_text_arcana_fire.vpcf", context)

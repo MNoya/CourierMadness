@@ -1,12 +1,3 @@
---[[
--> Features Necessary
-
--- UI for score and multiplier.
--- UI for Highest Score
--- Custom VTEX Splat! Eyes particle
--- Make each game session independant
-]]
-
 print ('[COURIERMADNESS] couriermadness.lua' )
 
 COURIERMADNESS_VERSION = "1<font color='#FFC800'>.</font>0<font color='#FFC800'>.</font>0"
@@ -17,10 +8,6 @@ DISABLE_FOG_OF_WAR_ENTIRELY = false
 USE_CUSTOM_HERO_LEVELS = true           -- Should we allow heroes to have custom levels?
 MAX_LEVEL = 50                          -- What level should we let heroes get to?
 USE_CUSTOM_XP_VALUES = true             -- Should we use custom XP values to level up heroes, or the default Dota numbers?
-
-MOUSE_STREAM_ENABLED = false
-
--- Fill this table up with the required XP per level if you want to change it
 XP_PER_LEVEL_TABLE = {}
 for i=1,MAX_LEVEL do
 	XP_PER_LEVEL_TABLE[i] = i * 100
@@ -446,7 +433,7 @@ function GameMode:OnEntityKilled(keys)
 		Timers:CreateTimer(function() FireGameEvent( 'toggle_restart', {} ) end)
 
 		-- Send stats for this round
-		Timers:CreateTimer(1, function() statcollection.sendStats() end)
+		--Timers:CreateTimer(1, function() statcollection.sendStats() end)
 
 		local heroLoc = killedUnit:GetAbsOrigin()
 		
@@ -666,7 +653,6 @@ function GameMode:ShowFirstTime( player )
 	Timers:CreateTimer(5, function() GameRules:SendCustomMessage("<font color='#FFC800'>Turn Sounds On</font> for dank music effects!", 0, 0) end)
 end
 
-
 -- register the 'StartGame' command in our console, when the player clicks OK to start
 Convars:RegisterCommand( "StartGame", function(name, p)
 		print( '******* GAME START  ***************' )
@@ -685,7 +671,6 @@ function GameMode:StartGame()
 	GameMode:OnGameInProgress()
 end
 
-
 -- register the 'Disconnecting' command in our console
 Convars:RegisterCommand( "Disconnecting", function(name, p)
 	print( ' Disconnecting !!!' )
@@ -699,59 +684,15 @@ Convars:RegisterCommand( "Disconnecting", function(name, p)
 	end
 end, "A player chooses exit", 0 )
 
-
-Convars:RegisterCommand( "MouseStreamToggle", function(name, p)
-	local cmdPlayer = Convars:GetCommandClient()
-	if cmdPlayer then
-		local playerID = cmdPlayer:GetPlayerID()
-		if playerID ~= nil and playerID ~= -1 then
-			MouseStreamToggle(cmdPlayer)
-		end
-	end
-end, "", 0 )
-
 function GameMode:EndGame( player, score)
 	-- Send stats final
-	statcollection.sendStats()
+	--statcollection.sendStats()
 	GameRules:SendCustomMessage("<font color='#FFC800'><br>Game will end in 10 seconds</font>",0,0)
 	Timers:CreateTimer(4, function() GameRules:SendCustomMessage("<font color='#FFC800'>Please leave your feedback at our workshop page</font>",0,0) end)
 	Timers:CreateTimer(7, function() GameRules:SendCustomMessage("<font color='#FFC800'>3</font>",0,0) end)
 	Timers:CreateTimer(8, function() GameRules:SendCustomMessage("<font color='#FFC800'>2</font>",0,0) end)
 	Timers:CreateTimer(9, function() GameRules:SendCustomMessage("<font color='#FFC800'>1...</font>",0,0) end)
 	Timers:CreateTimer(10, function() SendToConsole("disconnect") end)
-end
-
-function MouseStreamToggle( hPlayer )
-	local hero = hPlayer:GetAssignedHero()
-	if not MOUSE_STREAM_ENABLED then
-		print("Enabling MouseStream")
-		MOUSE_STREAM_ENABLED = true
-		hPlayer.cursorStream = FlashUtil:RequestDataStream( "cursor_position_world", .01, hPlayer:GetPlayerID(), function(playerID, cursorPos)
-			local validPos = true
-			if cursorPos.x > 30000 or cursorPos.y > 30000 or cursorPos.z > 30000 then
-				validPos = false
-			end
-			if validPos and hero:IsAlive() then
-				local heroPos = hero:GetAbsOrigin()
-				--if cursorSnap ~= hPlayer.lastCursorPos then
-				local offset = 20
-				local event = {caster = hero, offset = offset}
-				local moveRight = true
-				if cursorPos.x < heroPos.x then 
-					moveRight = false
-				end
-				if cursorPos.x > heroPos.x + offset or cursorPos.x < heroPos.x - offset then
-					if moveRight then MoveRight(event)
-					else MoveLeft(event) end
-				end
-			end
-
-		end)
-	else
-		FlashUtil:StopDataStream( hPlayer.cursorStream )
-		MOUSE_STREAM_ENABLED = false
-		hPlayer.cursorStream = nil
-	end
 end
 
 function GameMode:PlayMusicForEveryone(  )

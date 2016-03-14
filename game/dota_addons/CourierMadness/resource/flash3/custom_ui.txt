@@ -20,11 +20,6 @@
         "File"      "StatsCollectionHighscores"
         "Depth"     "2"
     }
-    "5"
-    {
-        "File"      "FlashUtil"
-        "Depth"     "51"
-    }
 }
 
 // =============================================
