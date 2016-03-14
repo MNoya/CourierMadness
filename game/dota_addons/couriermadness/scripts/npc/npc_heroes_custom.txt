@@ -1,0 +1,51 @@
+"DOTAHeroes"
+{
+	"dodger_of_couriers"
+	{
+		"override_hero"				"npc_dota_hero_omniknight"
+
+		"AbilityLayout" 			"4"
+		"Ability1"					"dodger_move_left"
+		"Ability2"					"dodger_passive"
+		"Ability3"					"dodger_move_right"
+		"Ability4"					"dodger_ultimate"
+		"Ability5"					""
+		"Ability6"					""
+		"Ability7"					""
+		"Ability8"					""
+	
+		"ArmorPhysical"				"0"	
+		"MagicalResistance"			"0"	
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"			"0"	
+		"AttackDamageMax"			"0"	
+
+		"AttributePrimary"			"DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"		"0"	
+		"AttributeStrengthGain"		"0"	
+		"AttributeBaseIntelligence"	"0"	
+		"AttributeIntelligenceGain"	"0"	
+		"AttributeBaseAgility"		"0"	
+		"AttributeAgilityGain"		"0"	
+
+		"BountyXP"					"0"	
+		"BountyGoldMin"				"0"	
+		"BountyGoldMax"				"0"	
+
+		//"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		//"RingRadius"				"70"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"322"
+		"MovementTurnRate"			"1.0"
+
+		"StatusHealth"				"5"		// Lives
+		"StatusHealthRegen"			"0"	
+		"StatusMana"				"100"
+		"StatusManaRegen"			"0"	
+
+		"VisionDaytimeRange"		"1800"
+		"VisionNighttimeRange"		"1800"
+	}
+}
