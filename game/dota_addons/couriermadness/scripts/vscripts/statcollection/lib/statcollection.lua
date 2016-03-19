@@ -25,7 +25,7 @@ require('statcollection/schema')
 local statInfo = LoadKeyValues('scripts/vscripts/statcollection/settings.kv')
 
 -- Where stuff is posted to
-local postLocation = 'http://getdotastats.com/s2/api/'
+local postLocation = 'https://api.getdotastats.com/'
 
 -- The schema version we are currently using
 local schemaVersion = 4
@@ -70,21 +70,21 @@ end
 function statCollection:init()
     -- Only allow init to be run once
     if self.doneInit then
-        print(printPrefix .. errorInitCalledTwice)
+        statCollection:print(errorInitCalledTwice)
         return
     end
     self.doneInit = true
 
     -- Print the intro message
-    print(printPrefix .. messageStarting)
+    statCollection:print(messageStarting)
 
     -- Check for a modIdentifier
     local modIdentifier = statInfo.modID
     if not modIdentifier then
-        print(printPrefix .. errorMissingModIdentifier)
+        statCollection:print(errorMissingModIdentifier)
 
     elseif modIdentifier == 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' then
-        print(printPrefix .. errorDefaultModIdentifier)
+        statCollection:print(errorDefaultModIdentifier)
 
         self.doneInit = false
         return
@@ -97,9 +97,6 @@ function statCollection:init()
     self.ANCIENT_EXPLOSION = tobool(statInfo.ANCIENT_EXPLOSION)
     self.OVERRIDE_AUTOMATIC_SEND_STAGE_2 = tobool(statInfo.OVERRIDE_AUTOMATIC_SEND_STAGE_2)
     self.TESTING = tobool(statInfo.TESTING)
-
-    self.postLocation = postLocation
-    self.schemaVersion = schemaVersion
 
     -- Store the modIdentifier
     self.modIdentifier = modIdentifier
@@ -184,9 +181,9 @@ function statCollection:hookFunctions()
 
         if state == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
             -- Load time flag
-            statCollection:setFlags({ loadTime = math.floor(GameRules:GetGameTime()) })
+            statCollection:setFlags({ loadTime = math.floor(GameRules:GetGameTime()+0.5) })
 
-        elseif state >= DOTA_GAMERULES_STATE_PRE_GAME then
+        elseif state == DOTA_GAMERULES_STATE_PRE_GAME then
             if not self.OVERRIDE_AUTOMATIC_SEND_STAGE_2 then
                 -- Send pregame stats
                 this:sendStage2()
@@ -239,12 +236,12 @@ function statCollection:setFlags(flags)
         -- Store the new flags
         for flagKey, flagValue in pairs(flags) do
             self.flags[flagKey] = flagValue
-            print(printPrefix .. messageFlagsSet .. " {" .. flagKey .. ":" .. tostring(flagValue) .. "}")
+            statCollection:print(messageFlagsSet .. " {" .. flagKey .. ":" .. tostring(flagValue) .. "}")
         end
 
     else
         -- Yell at the developer
-        print(printPrefix .. errorFlags)
+        statCollection:print(errorFlags)
     end
 end
 
@@ -252,17 +249,16 @@ end
 function statCollection:sendStage1()
     -- If we are missing required parameters, then don't send
     if not self.doneInit then
-        print("sendStage1 ERROR")
-        print(printPrefix .. errorRunInit)
+        statCollection:print("sendStage1 ERROR")
+        statCollection:print(errorRunInit)
         return
     end
 
     -- Ensure we can only send it once, and everything is good to go
     if self.sentStage1 then return end
-    self.sentStage1 = true
 
     -- Print the intro message
-    print(printPrefix .. messagePhase1Starting)
+    statCollection:print(messagePhase1Starting)
 
     -- Grab a reference to self
     local this = self
@@ -304,24 +300,28 @@ function statCollection:sendStage1()
     self:sendStage('s2_phase_1.php', payload, function(err, res)
         -- Check if we got an error
         if err then
-            print(printPrefix .. errorJsonDecode)
-            print(printPrefix .. err)
+            statCollection:print(errorJsonDecode)
+            statCollection:print(err)
             return
         end
 
         -- Check for an error
         if res.error then
-            print(printPrefix .. errorSomethingWentWrong)
-            print(res.error)
+            statCollection:print(errorSomethingWentWrong)
+            statCollection:print(res.error)
             return
         end
+
+        self.sentStage1 = true
 
         -- Woot, store our vars
         this.authKey = res.authKey
         this.matchID = res.matchID
 
         -- Tell the user
-        print(printPrefix .. messagePhase1Complete)
+        statCollection:print(messagePhase1Complete)
+        statCollection:print("Auth Key: ", self.authKey)
+        statCollection:print("MatchID: ", self.matchID)
     end)
 end
 
@@ -329,24 +329,25 @@ end
 function statCollection:sendStage2()
     -- If we are missing required parameters, then don't send
     if not self.doneInit then
-        print("sendStage2 ERROR")
-        print(printPrefix .. errorRunInit)
+        statCollection:print("sendStage2 ERROR")
+        statCollection:print(errorRunInit)
         return
     end
 
     -- If we are missing stage1 stuff, don't continue
     if not self.authKey or not self.matchID then
-        print("sendStage2 ERROR")
-        print(printPrefix .. errorMissedStage1)
+        statCollection:print("sendStage2 ERROR")
+        statCollection:print(errorMissedStage1)
+        statCollection:print("Auth Key: ", self.authKey)
+        statCollection:print("MatchID: ", self.matchID)
         return
     end
 
     -- Ensure we can only send it once, and everything is good to go
     if self.sentStage2 then return end
-    self.sentStage2 = true
 
     -- Print the intro message
-    print(printPrefix .. messagePhase2Starting)
+    statCollection:print(messagePhase2Starting)
 
     -- Client check in
     CustomGameEventManager:Send_ServerToAllClients("statcollection_client", { modID = self.modIdentifier, matchID = self.matchID, schemaVersion = schemaVersion })
@@ -369,6 +370,7 @@ function statCollection:sendStage2()
         modIdentifier = self.modIdentifier,
         flags = self.flags,
         schemaVersion = schemaVersion,
+        dotaMatchID = tostring(GameRules:GetMatchID()),
         players = players
     }
 
@@ -376,20 +378,22 @@ function statCollection:sendStage2()
     self:sendStage('s2_phase_2.php', payload, function(err, res)
         -- Check if we got an error
         if err then
-            print(printPrefix .. errorJsonDecode)
-            print(printPrefix .. err)
+            statCollection:print(errorJsonDecode)
+            statCollection:print(err)
             return
         end
 
         -- Check for an error
         if res.error then
-            print(printPrefix .. errorSomethingWentWrong)
-            print(res.error)
+            statCollection:print(errorSomethingWentWrong)
+            statCollection:print(res.error)
             return
         end
 
+        self.sentStage2 = true
+
         -- Tell the user
-        print(printPrefix .. messagePhase2Complete)
+        statCollection:print(messagePhase2Complete)
     end)
 end
 
@@ -397,35 +401,38 @@ end
 function statCollection:sendStage3(winners, lastRound)
     -- If we are missing required parameters, then don't send
     if not self.doneInit then
-        print("sendStage3 ERROR")
-        print(printPrefix .. errorRunInit)
+        statCollection:print("sendStage3 ERROR")
+        statCollection:print(errorRunInit)
         return
     end
 
     -- If we are missing stage1 stuff, don't continue
     if not self.authKey or not self.matchID then
-        print("sendStage3 ERROR")
-        print(printPrefix .. errorMissedStage1)
+        statCollection:print("sendStage3 ERROR")
+        statCollection:print(errorMissedStage1)
+        statCollection:print("Auth Key: ", self.authKey)
+        statCollection:print("MatchID: ", self.matchID)
         return
     end
 
     -- If we are missing stage2 stuff, don't continue
     if not self.sentStage2 then
-        print("sendStage3 ERROR")
-        print(printPrefix .. errorMissedStage2)
+        statCollection:print("sendStage3 ERROR")
+        statCollection:print(errorMissedStage2)
+        statCollection:print("Auth Key: ", self.authKey)
+        statCollection:print("MatchID: ", self.matchID)
         return
     end
 
     -- Ensure we can only send it once, and everything is good to go
     if not self.HAS_ROUNDS then
         if self.sentStage3 then return end
-        self.sentStage3 = true
     else
         self.roundID = self.roundID + 1
     end
 
     -- Print the intro message
-    print(printPrefix .. messagePhase3Starting)
+    statCollection:print(messagePhase3Starting)
 
     -- Build players array
     local players = {}
@@ -452,7 +459,7 @@ function statCollection:sendStage3(winners, lastRound)
         modIdentifier = self.modIdentifier,
         schemaVersion = schemaVersion,
         rounds = rounds,
-        gameDuration = GameRules:GetGameTime()
+        gameDuration = math.floor(GameRules:GetGameTime()+0.5)
     }
     if lastRound == false then
         payload.gameFinished = 0
@@ -462,20 +469,24 @@ function statCollection:sendStage3(winners, lastRound)
     self:sendStage('s2_phase_3.php', payload, function(err, res)
         -- Check if we got an error
         if err then
-            print(printPrefix .. errorJsonDecode)
-            print(printPrefix .. err)
+            statCollection:print(errorJsonDecode)
+            statCollection:print(err)
             return
         end
 
         -- Check for an error
         if res.error then
-            print(printPrefix .. errorSomethingWentWrong)
-            print(res.error)
+            statCollection:print(errorSomethingWentWrong)
+            statCollection:print(res.error)
             return
         end
 
+        if not self.HAS_ROUNDS then
+            self.sentStage3 = true
+        end
+
         -- Tell the user
-        print(printPrefix .. messagePhase3Complete)
+        statCollection:print(messagePhase3Complete)
     end)
 end
 
@@ -488,8 +499,8 @@ end
 -- Sends custom
 function statCollection:sendCustom(args)
     if not self.HAS_SCHEMA then
-        print("sendCustom ERROR")
-        print(printPrefix .. errorDefaultSchemaIdentifier)
+        statCollection:print("sendCustom ERROR")
+        statCollection:print(errorDefaultSchemaIdentifier)
         return
     end
 
@@ -500,9 +511,9 @@ function statCollection:sendCustom(args)
     end
     -- If we are missing required parameters, then don't send
     if not self.doneInit or not self.authKey or not self.matchID or not self.SCHEMA_KEY then
-        print(printPrefix .. errorRunInit)
+        statCollection:print(errorRunInit)
         if not self.SCHEMA_KEY then
-            print(printPrefix .. errorRunInit)
+            statCollection:print(errorRunInit)
         end
         return
     end
@@ -510,11 +521,10 @@ function statCollection:sendCustom(args)
     -- Ensure we can only send it once, and everything is good to go
     if self.HAS_ROUNDS == false then
         if self.sentCustom then return end
-        self.sentCustom = true
     end
 
     -- Print the intro message
-    print(printPrefix .. messageCustomStarting)
+    statCollection:print(messageCustomStarting)
 
     -- Build rounds table
     local rounds = {}
@@ -536,20 +546,24 @@ function statCollection:sendCustom(args)
     self:sendStage('s2_custom.php', payload, function(err, res)
         -- Check if we got an error
         if err then
-            print(printPrefix .. errorJsonDecode)
-            print(printPrefix .. err)
+            statCollection:print(errorJsonDecode)
+            statCollection:print(err)
             return
         end
 
         -- Check for an error
         if res.error then
-            print(printPrefix .. errorSomethingWentWrong)
-            print(res.error)
+            statCollection:print(errorSomethingWentWrong)
+            statCollection:print(res.error)
             return
         end
 
+        if self.HAS_ROUNDS == false then
+            self.sentCustom = true
+        end
+
         -- Tell the user
-        print(printPrefix .. messageCustomComplete)
+        statCollection:print(messageCustomComplete)
     end)
 end
 
@@ -557,14 +571,18 @@ end
 function statCollection:sendStage(stageName, payload, callback)
     -- Create the request
     local req = CreateHTTPRequest('POST', postLocation .. stageName)
-    --print(json.encode(payload))
+    local encoded = json.encode(payload)
+    if self.TESTING then
+        statCollection:print(encoded)
+    end
+
     -- Add the data
-    req:SetHTTPRequestGetOrPostParameter('payload', json.encode(payload))
+    req:SetHTTPRequestGetOrPostParameter('payload', encoded)
 
     -- Send the request
     req:Send(function(res)
         if res.StatusCode ~= 200 or not res.Body then
-            print(printPrefix .. errorFailedToContactServer)
+            statCollection:print(errorFailedToContactServer)
             return
         end
 
@@ -576,10 +594,27 @@ function statCollection:sendStage(stageName, payload, callback)
     end)
 end
 
-function tobool(s)
-    if s == "true" or s == "1" or s == 1 then
-        return true
-    else --nil "false" "0"
-    return false
+function statCollection:print(s1, s2)
+    local str = s1
+    if s1 then
+        str = printPrefix .. tostring(s1)
     end
+
+    if s2 then
+        str = str .. " " .. tostring(s2)
+    end
+
+    -- print to panorama console in dedicated servers Testing mode
+    if IsDedicatedServer() and self.TESTING then
+        CustomGameEventManager:Send_ServerToAllClients("statcollection_print", { content = str })
+    else
+    -- print to vscript developer console, or non-dedi server
+        if self.TESTING or Convars:GetBool("developer") then
+            print(str)
+        end
+    end
+end
+
+function tobool(s)
+    return s == true or s == "true" or s == "1" or s == 1
 end
